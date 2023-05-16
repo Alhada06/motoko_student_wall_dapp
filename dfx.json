@@ -1,0 +1,30 @@
+{
+  "canisters": {
+    "motoko_student_wall_dapp_backend": {
+      "main": "src/motoko_student_wall_dapp_backend/main.mo",
+      "type": "motoko"
+    },
+    "motoko_student_wall_dapp_frontend": {
+      "dependencies": ["motoko_student_wall_dapp_backend"],
+      "frontend": {
+        "entrypoint": "dist/index.html"
+      },
+      "source": ["dist/"],
+      "type": "assets"
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
