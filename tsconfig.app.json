@@ -15,6 +15,7 @@
       "@/*": ["src/motoko_student_wall_dapp_frontend/*"],
       "@declarations/*": ["src/declarations/*"]
     },
-    "types": ["node"]
+    "types": ["node"],
+    "allowJs": true
   }
 }

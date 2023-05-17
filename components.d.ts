@@ -16,7 +16,6 @@ declare module '@vue/runtime-core' {
     IconSupport: typeof import('./src/motoko_student_wall_dapp_frontend/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/motoko_student_wall_dapp_frontend/components/icons/IconTooling.vue')['default']
     IIcOutlineWbSunny: typeof import('~icons/ic/outline-wb-sunny')['default']
-    IMdiAccountBox: typeof import('~icons/mdi/account-box')['default']
     IMdiWeatherNight: typeof import('~icons/mdi/weather-night')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

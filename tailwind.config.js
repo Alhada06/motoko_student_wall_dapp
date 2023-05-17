@@ -9,7 +9,13 @@ module.exports = {
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
   daisyui: {
     styled:true,
-    themes: ['winter','night','light'],
+    themes: [{winter:{...require('daisyui/src/colors/themes')['[data-theme=winter]'],
+    "base-100":"#e2e8f0",
+    "base-200":"#cbd5e1",
+    "base-300":"#94a3b8"
+  
+  
+  }},'night'],
     darkTheme: "night",
   }
 }
