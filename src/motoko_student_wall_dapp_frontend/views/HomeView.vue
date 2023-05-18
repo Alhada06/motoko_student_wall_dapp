@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { canisterId, createActor } from '@declarations/motoko_student_wall_dapp_backend'
 import { useAuthStore } from '@/stores/auth'
+import { useRoute, useRouter } from 'vue-router';
+
+const rout=useRoute();
+const router=useRouter();
+if(rout.query){
+  console.log(rout.query)
+}
 
 const authStore = useAuthStore()
-const { isAuthenticated } = storeToRefs(authStore)
+const { isAuthenticated ,user} = storeToRefs(authStore)
 const greeting = ref<string>('')
 const input = ref<string>('')
 
@@ -22,10 +29,17 @@ const submit = async () => {
   }
 }
 const me = ref('')
-
+const profile =ref();
+const proJ=ref();
 const whoami = () => {
   authStore.wallActor?.whoami().then((res) => {
     me.value = res as unknown as string
+  })
+}
+const getProfile=()=>{
+  authStore.wallActor?.getMyProfile().then((p)=>{
+      
+      profile.value=p;
   })
 }
 
@@ -35,7 +49,7 @@ const whoami = () => {
 </script>
 
 <template>
-  <div class="flex content-center justify-center">
+  <div class="flex content-center justify-center flex-col">
     <div class="card w-1/3 bg-base-200 shadow-xl dark:shadow-white/20">
       <div class="card-body items-center text-center">
         <h2 class="card-title text-center">Test Greet function</h2>
@@ -83,6 +97,15 @@ const whoami = () => {
           {{ me }}
         </div>
       </div>
+    </div>
+    <div v-if="isAuthenticated">
+    <button @click="getProfile" class="btn-secondary btn">profile</button>
+    <div v-if="profile">
+      {{ profile }}
+    </div>
+   
+  </div> <div v-if="isAuthenticated">
+      {{ user }}
     </div>
   </div>
 </template>

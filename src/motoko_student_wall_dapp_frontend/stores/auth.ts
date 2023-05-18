@@ -1,10 +1,11 @@
+
 import { AuthClient } from '@dfinity/auth-client'
 import { createActor, canisterId } from '@declarations/motoko_student_wall_dapp_backend'
 import { toRaw } from 'vue'
 import type { Identity, ActorSubclass } from '@dfinity/agent'
-import type { _SERVICE } from '@declarations/motoko_student_wall_dapp_backend/motoko_student_wall_dapp_backend.did'
-import { useRouter } from 'vue-router'
-const router=useRouter();
+import type { _SERVICE,Profile } from '@declarations/motoko_student_wall_dapp_backend/motoko_student_wall_dapp_backend.did'
+
+
 
 const defaultOptions = {
   /**
@@ -42,17 +43,19 @@ export type RootState = {
   authClient: AuthClient | null
   identity: Identity | null
   wallActor: ActorSubclass<_SERVICE> | null
+  user:Profile |null |undefined
 }
 
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
       isReady: false,
-      isAuthenticated: false,
+      isAuthenticated: useLocalStorage('isAuth', false) as unknown as Boolean,
       authClient: null,
-      isRegistered: false,
+      isRegistered: useLocalStorage('isReg', false) as unknown as Boolean,
       identity: null,
-      wallActor: null
+      wallActor: null,
+      user:null
     } as RootState
   },
   actions: {
@@ -77,6 +80,7 @@ export const useAuthStore = defineStore('auth', {
           this.identity = this.isAuthenticated ? authClient.getIdentity() : null
           this.wallActor = this.identity ? actorFromIdentity(this.identity) : null
           this.isRegistered = this.identity&&this.wallActor? await this.wallActor.isRegistered(this.identity.getPrincipal()) :false;
+          this.user= this.isRegistered&&this.wallActor? await this.wallActor.getMyProfile().then((p)=>{if(p){return p[0]}else{return null}}):null;
           if(this.isAuthenticated&& !this.isRegistered){
           return  this.router.push('/register')
           }
@@ -90,6 +94,7 @@ export const useAuthStore = defineStore('auth', {
       this.isAuthenticated = false
       this.identity = null
       this.wallActor = null
+      this.user=null
       return  this.router.push('/')
     }
   }

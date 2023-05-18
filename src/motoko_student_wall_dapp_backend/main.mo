@@ -35,17 +35,8 @@ actor {
 
   };
 
-  public shared query ({ caller }) func getMyProfile() : async Result.Result<Profile, Text> {
-
-    if (not (Principal.isAnonymous(caller))) {
-      switch (users.get(caller)) {
-        case (null) { #err("no profile") };
-        case (?profile) { #ok(profile) }
-      };
-
-    } else {
-      return #err("user is anonymous pls login")
-    };
+  public shared query ({ caller }) func getMyProfile() : async ?Profile{
+    return users.get(caller)
 
   };
 
