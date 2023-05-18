@@ -52,6 +52,7 @@ const { isAuthenticated } = storeToRefs(authStore)
         <div class="mt-10 grid max-h-full scroll-pt-16 grid-cols-12 gap-2">
           <div class="col-span-10 col-start-2">
             <slot />
+            
           </div>
         </div>
       </div>
@@ -64,6 +65,6 @@ const { isAuthenticated } = storeToRefs(authStore)
         <li><RouterLink to="/about" activeClass="active">About </RouterLink></li>
         <li><TheThemeSwitch /></li>
       </ul>
-    </div>
+    </div><ToastList/> 
   </div>
 </template>

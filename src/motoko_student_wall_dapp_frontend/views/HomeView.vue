@@ -2,6 +2,7 @@
 import { canisterId, createActor } from '@declarations/motoko_student_wall_dapp_backend'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router';
+import toast from '@/composables/toast';
 
 const rout=useRoute();
 const router=useRouter();
@@ -42,7 +43,9 @@ const getProfile=()=>{
       profile.value=p;
   })
 }
-
+const addToast=()=>{
+toast.add({message:"test tpoast add"})
+}
 // const submit=()=>{
 //     console.log("submited")
 // }
@@ -107,5 +110,6 @@ const getProfile=()=>{
   </div> <div v-if="isAuthenticated">
       {{ user }}
     </div>
+    <button class="btn btn-secondary"  @click="addToast">add toast</button>
   </div>
 </template>

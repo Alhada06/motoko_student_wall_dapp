@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutViewVue from '@/views/AboutView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import { useAuthStore } from '@/stores/auth'
-
+import toast from '@/composables/toast'
 
 
 const router = createRouter({
@@ -65,13 +65,15 @@ router.beforeEach((to,from )=>{
     console.log(authStore.isAuthenticated)
     if(!authStore.isAuthenticated){
       console.log('there')
-        return {name:'home',message:'You are not Authenticated pls Login'}
+      toast.add({message:'You are not Authenticated pls Login'})
+        return {name:'home'}
     }else{
       //is authenticaded but needs to match other 
       if(to.matched.some((record)=>record.meta.requiresNotReg)){
         if(authStore.isRegistered){
           console.log("this shouldnt happen")
-          return{name:'home',query:{msg:"you don't have permission"}}
+          toast.add({message:"You don't have premission"})
+          return{name:'home'}
         }
 
       }

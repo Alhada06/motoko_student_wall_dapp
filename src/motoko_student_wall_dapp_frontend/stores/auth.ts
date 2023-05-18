@@ -4,7 +4,7 @@ import { createActor, canisterId } from '@declarations/motoko_student_wall_dapp_
 import { toRaw } from 'vue'
 import type { Identity, ActorSubclass } from '@dfinity/agent'
 import type { _SERVICE,Profile } from '@declarations/motoko_student_wall_dapp_backend/motoko_student_wall_dapp_backend.did'
-
+import toast from '@/composables/toast'
 
 
 const defaultOptions = {
@@ -81,10 +81,11 @@ export const useAuthStore = defineStore('auth', {
           this.wallActor = this.identity ? actorFromIdentity(this.identity) : null
           this.isRegistered = this.identity&&this.wallActor? await this.wallActor.isRegistered(this.identity.getPrincipal()) :false;
           this.user= this.isRegistered&&this.wallActor? await this.wallActor.getMyProfile().then((p)=>{if(p){return p[0]}else{return null}}):null;
+          toast.add({message:"You're logged in!"})
           if(this.isAuthenticated&& !this.isRegistered){
           return  this.router.push('/register')
           }
-        
+          
         }
       })
     },
@@ -95,7 +96,9 @@ export const useAuthStore = defineStore('auth', {
       this.identity = null
       this.wallActor = null
       this.user=null
+        toast.add({message:"You have logged out!"})
       return  this.router.push('/')
+    
     }
   }
 })

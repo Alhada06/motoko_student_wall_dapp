@@ -15,6 +15,8 @@ if (isReady.value === false) {
         <component :is="Component" />
       </transition>
     </RouterView>
+
+    
   </TheHeader>
 </template>
 

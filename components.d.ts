@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     IconEcosystem: typeof import('./src/motoko_student_wall_dapp_frontend/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./src/motoko_student_wall_dapp_frontend/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/motoko_student_wall_dapp_frontend/components/icons/IconTooling.vue')['default']
+    IIcBaselineClose: typeof import('~icons/ic/baseline-close')['default']
     IIcOutlineWbSunny: typeof import('~icons/ic/outline-wb-sunny')['default']
     IMdiWeatherNight: typeof import('~icons/mdi/weather-night')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -22,6 +23,9 @@ declare module '@vue/runtime-core' {
     TheHeader: typeof import('./src/motoko_student_wall_dapp_frontend/components/TheHeader.vue')['default']
     TheThemeSwitch: typeof import('./src/motoko_student_wall_dapp_frontend/components/TheThemeSwitch.vue')['default']
     TheWelcome: typeof import('./src/motoko_student_wall_dapp_frontend/components/TheWelcome.vue')['default']
+    ToasList: typeof import('./src/motoko_student_wall_dapp_frontend/components/ToasList.vue')['default']
+    ToastList: typeof import('./src/motoko_student_wall_dapp_frontend/components/ToastList.vue')['default']
+    ToastListItem: typeof import('./src/motoko_student_wall_dapp_frontend/components/ToastListItem.vue')['default']
     WelcomeItem: typeof import('./src/motoko_student_wall_dapp_frontend/components/WelcomeItem.vue')['default']
   }
 }
