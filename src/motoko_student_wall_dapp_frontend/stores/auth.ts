@@ -4,7 +4,8 @@ import { createActor, canisterId } from '@declarations/motoko_student_wall_dapp_
 import { toRaw } from 'vue'
 import type { Identity, ActorSubclass } from '@dfinity/agent'
 import type { _SERVICE,Profile } from '@declarations/motoko_student_wall_dapp_backend/motoko_student_wall_dapp_backend.did'
-import toast from '@/composables/toast'
+import toast, { ToastType } from '@/composables/toast'
+import { StorageSerializers } from '@vueuse/core'
 
 
 const defaultOptions = {
@@ -55,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
       isRegistered: useLocalStorage('isReg', false) as unknown as Boolean,
       identity: null,
       wallActor: null,
-      user:null
+      user: useLocalStorage('user', null, { serializer: StorageSerializers.object }) as unknown as Profile 
     } as RootState
   },
   actions: {
@@ -81,7 +82,7 @@ export const useAuthStore = defineStore('auth', {
           this.wallActor = this.identity ? actorFromIdentity(this.identity) : null
           this.isRegistered = this.identity&&this.wallActor? await this.wallActor.isRegistered(this.identity.getPrincipal()) :false;
           this.user= this.isRegistered&&this.wallActor? await this.wallActor.getMyProfile().then((p)=>{if(p){return p[0]}else{return null}}):null;
-          toast.add({message:"You're logged in!"})
+          toast.add({message:"You're logged in!",type:ToastType.success})
           if(this.isAuthenticated&& !this.isRegistered){
           return  this.router.push('/register')
           }
@@ -96,7 +97,7 @@ export const useAuthStore = defineStore('auth', {
       this.identity = null
       this.wallActor = null
       this.user=null
-        toast.add({message:"You have logged out!"})
+        toast.add({message:"You have logged out!",type:ToastType.info})
       return  this.router.push('/')
     
     }

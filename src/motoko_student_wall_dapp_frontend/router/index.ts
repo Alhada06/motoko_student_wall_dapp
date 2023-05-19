@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutViewVue from '@/views/AboutView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import { useAuthStore } from '@/stores/auth'
-import toast from '@/composables/toast'
+import toast ,{ToastType}from '@/composables/toast'
 
 
 const router = createRouter({
@@ -59,20 +59,20 @@ const router = createRouter({
 router.beforeEach((to,from )=>{
 
   const authStore=useAuthStore();
-  console.log(authStore)
+
   // if (to.meta.requiresAuth && !authStore.isAuthenticated) return '/'
   if(to.matched.some((record)=>record.meta.requiresAuth)){
     console.log(authStore.isAuthenticated)
     if(!authStore.isAuthenticated){
-      console.log('there')
-      toast.add({message:'You are not Authenticated pls Login'})
+     
+      toast.add({message:'You are not Authenticated please Login',type:ToastType.info})
         return {name:'home'}
     }else{
       //is authenticaded but needs to match other 
       if(to.matched.some((record)=>record.meta.requiresNotReg)){
         if(authStore.isRegistered){
           console.log("this shouldnt happen")
-          toast.add({message:"You don't have premission"})
+          toast.add({message:"You don't have premission",type:ToastType.error})
           return{name:'home'}
         }
 

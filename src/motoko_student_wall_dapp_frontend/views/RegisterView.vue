@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import toast, { ToastType } from '@/composables/toast';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter, } from 'vue-router';
 
@@ -12,6 +13,7 @@ const submit= async ()=>{
         authStore.wallActor?.addMyProfile({name:name.value}).then(()=>{
             authStore.user={name:name.value}
             authStore.isRegistered=true;
+            toast.add({message:'Successfully registered!',type:ToastType.success})
             router.push('/')
         })
         
@@ -27,7 +29,7 @@ const submit= async ()=>{
     <div class="flex content-center justify-center">
         <div class="card w-1/3 bg-base-200 shadow-xl dark:shadow-white/20">
           <div class="card-body items-center text-center">
-            <h2 class="card-title text-center">Test Greet function</h2>
+            <h2 class="card-title text-center">Register</h2>
             <form @submit.prevent="submit" class="form-control">
               <div class="input-group">
                 <input

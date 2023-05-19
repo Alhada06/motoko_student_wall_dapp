@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { canisterId, createActor } from '@declarations/motoko_student_wall_dapp_backend'
 import { useAuthStore } from '@/stores/auth'
-import { useRoute, useRouter } from 'vue-router';
-import toast from '@/composables/toast';
 
-const rout=useRoute();
-const router=useRouter();
-if(rout.query){
-  console.log(rout.query)
-}
+import toast,{ToastType} from '@/composables/toast';
+
+
 
 const authStore = useAuthStore()
 const { isAuthenticated ,user} = storeToRefs(authStore)
@@ -31,7 +27,7 @@ const submit = async () => {
 }
 const me = ref('')
 const profile =ref();
-const proJ=ref();
+
 const whoami = () => {
   authStore.wallActor?.whoami().then((res) => {
     me.value = res as unknown as string
@@ -40,11 +36,11 @@ const whoami = () => {
 const getProfile=()=>{
   authStore.wallActor?.getMyProfile().then((p)=>{
       
-      profile.value=p;
+      profile.value=p[0];
   })
 }
 const addToast=()=>{
-toast.add({message:"test tpoast add"})
+toast.add({message:"test tpoast add",type:ToastType.info})
 }
 // const submit=()=>{
 //     console.log("submited")
